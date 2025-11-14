@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateContactTextColorsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('contact_text_colors', function (Blueprint $table) {
+            $table->unsignedBigInteger('company_id')->nullable()->constrained();
+            $table->unsignedBigInteger('color_id')->nullable()->constrained();
+            $table->foreign('company_id')->references('id')->on('contacts')
+                ->onDelete('cascade');
+            $table->foreign('color_id')->references('id')->on('text_colors')
+                ->onDelete('set null');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('contact_text_colors');
+    }
+}

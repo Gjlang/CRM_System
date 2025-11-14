@@ -1,0 +1,415 @@
+<template>
+    <div class="w-full min-h-screen">
+        <div class="max-h-10 my-2">
+            <GoBack class="" />
+        </div>
+        <div v-if="errors">
+            <div v-for="(v, k) in errors" :key="k">
+                <p
+                    v-for="error in v"
+                    :key="error"
+                    class="text-xs bg-red-500 text-white rounded font-bold mb-1 shadow-lg py-2 px-8 w-max"
+                >
+                    {{ error }}
+                </p>
+            </div>
+        </div>
+        <h1
+            class="items-center text-center text-white font-extrabold font-mono sm:text-4xl uppercase bg-blue-900 sm:px-2 py-2 rounded-md"
+        >
+            Create Tempboard
+        </h1>
+
+        <div class="text-center">
+            <form
+                @submit.prevent="createTempboard"
+                class="inline-block align-middle"
+            >
+                <div class="grid grid-cols-1 items-center text-center">
+                    <div class="grid grid-cols-1">
+                        <div>
+                            <label class="sm:mx-2"
+                                >Entry Date
+                                <p class="inline text-red-600 text-lg">
+                                    *
+                                </p></label
+                            >
+                        </div>
+                        <div>
+                            <VueDatePicker
+                                v-model="form.tpboard_entrydate"
+                                showNowButton
+                                nowButtonLabel="Today"
+                                :enableTimePicker="false"
+                                class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            />
+                        </div>
+                    </div>
+                    <div class="inline-block w-full mt-2">
+                        <label class=""
+                            >CS
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="inline-block w-full">
+                        <div class="">
+                            <select
+                                class="text-left w-full rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                v-model="form.user_id"
+                                @change="getUsers"
+                            >
+                                <option disabled value="">
+                                    Please select user
+                                </option>
+
+                                <option
+                                    v-for="user in users"
+                                    :key="user.id"
+                                    :value="user.id"
+                                >
+                                    {{ user.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="inline-block w-full mt-2">
+                        <label class=""
+                            >Contact
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="inline-block w-full">
+                        <v-select
+                            label="name"
+                            :options="contacts"
+                            class="form_company"
+                            :reduce="(name) => name.id"
+                            v-model="form.contact_id"
+                            placeholder="Search & select company"
+                            @search="findContacts"
+                            :filterable="false"
+                        ></v-select>
+                    </div>
+
+                    <div class="inline-block w-full mt-2">
+                        <label class=""
+                            >Size
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="inline-block w-max mx-auto my-2">
+                        <div class="grid grid-cols-3">
+                            <div class="sm:mx-2">
+                                <input
+                                    type="text"
+                                    class="text-left w-20 inline-block mt-1 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    v-model="form.tpboard_size1"
+                                />
+                                <p
+                                    class="inline-block align-top text-xl ml-1 font-bold"
+                                >
+                                    "
+                                </p>
+                            </div>
+                            <div class="pt-2">
+                                <p class="uppercase text-xl">X</p>
+                            </div>
+                            <div class="sm:mx-2">
+                                <input
+                                    type="text"
+                                    class="text-left w-20 inline-block mt-1 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    v-model="form.tpboard_size2"
+                                />
+                                <p
+                                    class="inline-block align-top text-xl ml-1 font-bold"
+                                >
+                                    "
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full mt-2">
+                        <label class="sm:mx-2"
+                            >Location
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="w-full">
+                        <input
+                            type="text"
+                            class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            v-model="form.tpboard_location"
+                        />
+                    </div>
+                    <div class="w-full mt-2">
+                        <label class="sm:mx-2"
+                            >Unit
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="w-full">
+                        <input
+                            type="text"
+                            class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            v-model="form.tpboard_unit"
+                        />
+                    </div>
+
+                    <div class="grid grid-cols-2 mt-2 gap-4">
+                        <div class="grid grid-cols-1">
+                            <div>
+                                <label class="sm:mx-2"
+                                    >Start Date
+                                    <p class="inline text-red-600 text-lg">
+                                        *
+                                    </p></label
+                                >
+                            </div>
+                            <div>
+                                <VueDatePicker
+                                    v-model="form.tpboard_startdate"
+                                    showNowButton
+                                    nowButtonLabel="Today"
+                                    :enableTimePicker="false"
+                                    class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1">
+                            <div>
+                                <label class="sm:mx-2"
+                                    >End Date
+                                    <p class="inline text-red-600 text-lg">
+                                        *
+                                    </p></label
+                                >
+                            </div>
+                            <div>
+                                <VueDatePicker
+                                    v-model="form.tpboard_enddate"
+                                    showNowButton
+                                    nowButtonLabel="Today"
+                                    :enableTimePicker="false"
+                                    class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full mt-2">
+                        <label class="sm:mx-2"
+                            >Collection
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="w-full">
+                        <input
+                            type="text"
+                            class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            v-model="form.tpboard_collection"
+                        />
+                    </div>
+                    <div class="w-full mt-2">
+                        <label class="sm:mx-2"
+                            >Material
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="w-full">
+                        <input
+                            type="text"
+                            class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            v-model="form.tpboard_material"
+                        />
+                    </div>
+                    <div class="w-full mt-2">
+                        <label class="sm:mx-2"
+                            >Printing
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="w-full">
+                        <input
+                            type="text"
+                            class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            v-model="form.tpboard_printing"
+                        />
+                    </div>
+                    <div class="w-full mt-2">
+                        <label class="sm:mx-2"
+                            >Installation
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="w-full">
+                        <input
+                            type="text"
+                            class="text-left w-full inline-block items-left mt-1 sm:mx-2 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            v-model="form.tpboard_installation"
+                        />
+                    </div>
+                    <div class="w-full mt-2">
+                        <label class="sm:mx-2"
+                            >Remark
+                            <p class="inline text-red-600 text-lg">*</p></label
+                        >
+                    </div>
+                    <div class="w-full">
+                        <div
+                            v-if="form.tpboard_remark.length >= 800"
+                            class="text-red-600 inline text-xs uppercase"
+                        >
+                            Exceeded limit
+                        </div>
+                        <textarea
+                            maxlength="800"
+                            type="text"
+                            class="text-left inline-block items-left mt-1 w-full h-40 rounded-md border-gray-500 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            v-model="form.tpboard_remark"
+                        />
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    class="inline-flex mt-2 px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                >
+                    Create
+                </button>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script>
+import GoBack from "../utils/GoBack.vue";
+import {
+    PencilSquareIcon,
+    TrashIcon,
+    PlusCircleIcon,
+    PlusIcon,
+    PencilIcon,
+} from "@heroicons/vue/24/solid";
+import moment from "moment";
+import { VueDatePicker } from "@vuepic/vue-datepicker";
+
+export default {
+    components: { GoBack, PencilSquareIcon, TrashIcon, VueDatePicker },
+
+    data() {
+        return {
+            moment: moment,
+            contact_infos: [],
+            form: {
+                tpboard_entrydate: "",
+                contact_id: "",
+                user_id: "",
+                tpboard_startdate: "",
+                tpboard_enddate: "",
+                tpboard_size1: "",
+                tpboard_size2: "",
+                tpboard_location: "",
+                tpboard_unit: "",
+                tpboard_collection: "",
+                tpboard_material: "",
+                tpboard_printing: "",
+                tpboard_installation: "",
+                tpboard_remark: "",
+            },
+            errors: "",
+            contacts: [],
+            users: [],
+        };
+    },
+    mounted() {
+        this.getUsers();
+        // this.getContacts();
+    },
+    methods: {
+        async createTempboard() {
+            try {
+                await axios.post("/api/tempboards/store", {
+                    tpboard_entrydate: this.moment(
+                        this.form.tpboard_entrydate
+                    ).format("YYYY-MM-DD"),
+                    contact_id: this.form.contact_id,
+                    user_id: this.form.user_id,
+                    tpboard_startdate: this.moment(
+                        this.form.tpboard_startdate
+                    ).format("YYYY-MM-DD"),
+                    tpboard_enddate: this.moment(
+                        this.form.tpboard_enddate
+                    ).format("YYYY-MM-DD"),
+
+                    tpboard_size1: this.form.tpboard_size1,
+                    tpboard_size2: this.form.tpboard_size2,
+                    tpboard_location: this.form.tpboard_location,
+                    tpboard_unit: this.form.tpboard_unit,
+                    tpboard_collection: this.form.tpboard_collection,
+                    tpboard_material: this.form.tpboard_material,
+                    tpboard_printing: this.form.tpboard_printing,
+                    tpboard_installation: this.form.tpboard_installation,
+                    tpboard_remark: this.form.tpboard_remark
+                        ? this.form.tpboard_remark
+                        : "No remark",
+                });
+
+                this.$router.push({
+                    name: "tempboard_index",
+                    // params: { id: this.$route.params.id },
+                });
+            } catch (e) {
+                {
+                    if (e.response.status === 422) {
+                        this.errors = e.response.data.errors;
+                    }
+                }
+            }
+        },
+
+        async getUsers() {
+            await axios
+                .get("/api/users/users_list")
+                .then((res) => {
+                    this.users = res.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+
+        async getContacts() {
+            await axios
+                .get("/api/contacts/list")
+                .then((res) => {
+                    this.contacts = res.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+
+        findContacts(search, loading) {
+            if (search.length) {
+                loading(true);
+                this.searchContact(loading, search, this);
+            }
+        },
+
+        searchContact: _.debounce((loading, search, vm) => {
+            axios.get("/api/contacts/list?" + "q=" + search).then((res) => {
+                vm.contacts = res.data.data;
+                loading(false);
+            });
+        }, 350),
+    },
+};
+</script>
+<style>
+.form_company {
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.375rem;
+    border: 2px;
+    border-color: black;
+}
+</style>
