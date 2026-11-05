@@ -1,6 +1,5 @@
 <template>
-    <div class="container w-max-10 align-center mx-auto px-1 pb-60 h-full"
-    >
+    <div class="container w-max-10 align-center mx-auto px-1 pb-60 h-full">
         <div>
             <GoBack />
         </div>
@@ -130,9 +129,10 @@
 <script>
 import GoBack from "../utils/GoBack.vue";
 import axios from "axios";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
-import ForbiddenPage from "../utils/NoAuthorizationPage.vue"
+import ForbiddenPage from "../utils/NoAuthorizationPage.vue";
 
 export default {
     components: { GoBack, VueDatePicker, ForbiddenPage },
@@ -178,11 +178,11 @@ export default {
             try {
                 await axios.post("/api/projects/store", {
                     project_startdate: this.moment(
-                        this.form.project_startdate
+                        this.form.project_startdate,
                     ).format("YYYY-MM-DD"),
                     // project_startdate: this.form.project_startdate,
                     project_enddate: this.moment(
-                        this.form.project_enddate
+                        this.form.project_enddate,
                     ).format("YYYY-MM-DD"),
                     // project_enddate: this.form.project_enddate,
                     project_name: this.form.project_name,

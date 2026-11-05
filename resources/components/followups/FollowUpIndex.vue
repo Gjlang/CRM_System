@@ -275,7 +275,7 @@
         </div>
 
         <div class="w-full overflow-auto">
-            <table class="table table-hover table-bordered " id="example">
+            <table class="table table-hover table-bordered" id="example">
                 <thead class="bg-slate-500">
                     <tr>
                         <th
@@ -514,7 +514,10 @@
                 </thead>
                 <tbody>
                     <tr v-show="buffering">
-                        <td class="text-center text-xs sm:text-sm font-bold" colspan="13">
+                        <td
+                            class="text-center text-xs sm:text-sm font-bold"
+                            colspan="13"
+                        >
                             Loading . .
                         </td>
                     </tr>
@@ -617,7 +620,8 @@
 import LaravelVuePagination from "laravel-vue-pagination";
 import axios from "axios";
 import moment from "moment";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import FollowupRemarkModalVue from "./FollowupRemarkModal.vue";
 import {
     PencilSquareIcon,
@@ -895,7 +899,7 @@ export default {
                         "&sort_direction=" +
                         this.sort_direction +
                         "&sort_field=" +
-                        this.sort_field
+                        this.sort_field,
                 )
                 .then((res) => {
                     this.buffering = false;
@@ -931,7 +935,7 @@ export default {
                         "&sort_direction=" +
                         this.sort_direction +
                         "&sort_field=" +
-                        this.sort_field
+                        this.sort_field,
                 )
                 .then((res) => {
                     this.buffering = false;
@@ -967,7 +971,7 @@ export default {
                         "&sort_direction=" +
                         this.sort_direction +
                         "&sort_field=" +
-                        this.sort_field
+                        this.sort_field,
                 )
                 .then((res) => {
                     this.buffering = false;
@@ -1103,7 +1107,7 @@ export default {
                 document.getElementById("incrementDate").disabled = false;
                 return (this.selectedDate = moment(this.selectedDate).add(
                     1,
-                    "d"
+                    "d",
                 ));
             } else if (this.viewType === "month") {
                 document.getElementById("incrementDate").disabled = false;
@@ -1131,7 +1135,7 @@ export default {
                 document.getElementById("decrementDate").disabled = false;
                 return (this.selectedDate = moment(this.selectedDate).subtract(
                     1,
-                    "d"
+                    "d",
                 ));
             } else if (this.viewType === "month") {
                 document.getElementById("decrementDate").disabled = false;

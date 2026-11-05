@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="w-full min-h-screen px-1 pt-3 pb-60"
-    >
+    <div class="w-full min-h-screen px-1 pt-3 pb-60">
         <div>
             <GoBack />
         </div>
@@ -131,7 +129,8 @@
 <script>
 import GoBack from "../utils/GoBack.vue";
 import axios from "axios";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
 
 export default {
@@ -180,10 +179,10 @@ export default {
                     "/api/projects/update/" + this.$route.params.id,
                     {
                         project_startdate: this.moment(
-                            this.project.project_startdate
+                            this.project.project_startdate,
                         ).format("YYYY-MM-DD"),
                         project_enddate: this.moment(
-                            this.project.project_enddate
+                            this.project.project_enddate,
                         ).format("YYYY-MM-DD"),
                         project_name: this.project.project_name,
                         project_remark: this.project.project_remark
@@ -191,7 +190,7 @@ export default {
                             : "No remark",
                         user_id: 2, //change to current user later
                         contact_id: this.project.contact_id,
-                    }
+                    },
                 );
 
                 await this.$router.push({
@@ -228,7 +227,6 @@ export default {
                 });
         },
     },
-    
 };
 </script>
 <style>

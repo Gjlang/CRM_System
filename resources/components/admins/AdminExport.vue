@@ -195,7 +195,10 @@
                     </div>
                 </div>
             </div>
-            <div class="w-max my-auto" v-if="export_type === 'forecast' || export_type === 'contact'">
+            <div
+                class="w-max my-auto"
+                v-if="export_type === 'forecast' || export_type === 'contact'"
+            >
                 <button
                     @click="revealFilter"
                     class="bg-blue-500 rounded-md uppercase text-xs px-2 py-2 font-bold font-mono text-white"
@@ -669,8 +672,7 @@
                                     ></v-select>
                                 </div>
                             </th>
-                            <th class="align-top w-20">
-                            </th>
+                            <th class="align-top w-20"></th>
                             <th class="grid grid-cols-1 gap-1 w-40">
                                 <div
                                     class="text-xs text-center h-max w-full align-top"
@@ -685,13 +687,9 @@
                                     ></v-select>
                                 </div>
                             </th>
-                            
-                            <th class="align-top">
-                                
-                            </th>
-                            <th class="align-top">
-                                
-                            </th>
+
+                            <th class="align-top"></th>
+                            <th class="align-top"></th>
                         </tr>
                     </thead>
                     <tbody class="mt-2">
@@ -2214,7 +2212,7 @@
                                 {{
                                     calculateDuration(
                                         project.project_startdate,
-                                        project.project_enddate
+                                        project.project_enddate,
                                     )
                                 }}
                                 day(s)
@@ -2249,7 +2247,8 @@
 import LaravelVuePagination from "laravel-vue-pagination";
 import axios from "axios";
 import moment from "moment";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import VuePdfEmbed from "vue-pdf-embed";
 
 import {
@@ -2354,7 +2353,6 @@ export default {
             filter_forecast_startupdate: "",
             filter_forecast_endupdate: "",
 
-
             selectedContactType: [],
             selectedContactStatus: [],
             selectedContactUsers: [],
@@ -2447,7 +2445,7 @@ export default {
                                 x++, index++
                             ) {
                                 new_arr.push(
-                                    `(${index})` + " " + arr[x].phone_mobile
+                                    `(${index})` + " " + arr[x].phone_mobile,
                                 );
                             }
 
@@ -2469,7 +2467,7 @@ export default {
                                 x++, index++
                             ) {
                                 new_arr.push(
-                                    `(${index})` + " " + arr[x].phone_office
+                                    `(${index})` + " " + arr[x].phone_office,
                                 );
                             }
 
@@ -2492,7 +2490,7 @@ export default {
                 User: "user_name",
                 Task: "task_name",
                 Remark: "todo_remark",
-                Action: "action_name"
+                Action: "action_name",
             },
 
             forecast_fields: {
@@ -2512,7 +2510,7 @@ export default {
                 "End Date": "project_enddate",
                 Duration: `${this.calculateDuration(
                     "project_startdate",
-                    "project_enddate"
+                    "project_enddate",
                 )}`,
                 Company: "contact_name",
                 "Project Name": "project_name",
@@ -2611,7 +2609,6 @@ export default {
         import_export: function (value) {
             this.export_type = "";
         },
-
 
         selectedContactType: function (value) {
             this.filter_contact_types = value;
@@ -2717,7 +2714,7 @@ export default {
                         "&sort_direction=" +
                         this.sort_direction +
                         "&sort_field=" +
-                        this.sort_field
+                        this.sort_field,
                 )
                 .then((res) => {
                     this.buffering = false;
@@ -2921,3 +2918,4 @@ export default {
     font-size: 5px;
 }
 </style>
+

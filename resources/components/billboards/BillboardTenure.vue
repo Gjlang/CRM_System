@@ -388,7 +388,8 @@ import {
     PencilIcon,
 } from "@heroicons/vue/24/solid";
 import moment from "moment";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
     components: { GoBack, PencilSquareIcon, TrashIcon, VueDatePicker },

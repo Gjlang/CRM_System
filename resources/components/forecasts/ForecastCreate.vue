@@ -287,7 +287,8 @@ import {
     PencilIcon,
 } from "@heroicons/vue/24/solid";
 import moment from "moment";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
     components: { GoBack, PencilSquareIcon, TrashIcon, VueDatePicker },
@@ -338,7 +339,7 @@ export default {
             try {
                 await axios.post("/api/forecasts/store", {
                     forecast_date: this.moment(this.form.forecast_date).format(
-                        "YYYY-MM-DD"
+                        "YYYY-MM-DD",
                     ),
                     amount: this.form.amount,
                     user_id: this.form.user_id,

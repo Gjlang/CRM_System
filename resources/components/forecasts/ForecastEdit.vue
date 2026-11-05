@@ -172,7 +172,8 @@
 <script>
 import GoBack from "../utils/GoBack.vue";
 import axios from "axios";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import {
     PencilSquareIcon,
     TrashIcon,
@@ -230,7 +231,7 @@ export default {
                 await axios
                     .put("/api/forecasts/update/" + this.$route.params.id, {
                         forecast_date: this.moment(
-                            this.forecast.forecast_date
+                            this.forecast.forecast_date,
                         ).format("YYYY-MM-DD"),
                         amount: this.forecast.amount,
                         contact_id: this.forecast.contact.id,

@@ -250,7 +250,8 @@ import toDoComposables from "../composables/todos";
 import { onMounted } from "vue";
 import GoBack from "../utils/GoBack.vue";
 import { ref } from "vue";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
 
 export default {

@@ -41,7 +41,9 @@
                             /></label>
                         </div>
                     </div>
-                    <div class="px-1 py-1 col-span-2 sm:px-1 sm:py-1 sm:w-20 md:px-1 md:py-1 md:col-span-2">
+                    <div
+                        class="px-1 py-1 col-span-2 sm:px-1 sm:py-1 sm:w-20 md:px-1 md:py-1 md:col-span-2"
+                    >
                         <div
                             v-show="view_type === `day`"
                             class="grid grid-cols-1 text-center align-bottom items-center"
@@ -50,7 +52,9 @@
                                 <label class="">Select date</label>
                             </div>
                             <div class="my-auto mx-auto">
-                                <div class="px-2 w-40 md:px-2 md:w-32 sm:px-1 sm:w-10 lg:w-40">
+                                <div
+                                    class="px-2 w-40 md:px-2 md:w-32 sm:px-1 sm:w-10 lg:w-40"
+                                >
                                     <VueDatePicker
                                         v-model="search_date"
                                         showNowButton
@@ -83,7 +87,9 @@
                             <!-- <div class="border-gray-800 grid grid-cols-2 py-1 align-middle"> -->
                             <label class="mx-auto my-auto">Start date</label>
 
-                            <div class="px-2 w-40 md:px-2 md:w-32 sm:px-1 sm:w-10 lg:w-40">
+                            <div
+                                class="px-2 w-40 md:px-2 md:w-32 sm:px-1 sm:w-10 lg:w-40"
+                            >
                                 <VueDatePicker
                                     v-model="search_start_date"
                                     showNowButton
@@ -93,7 +99,9 @@
                                 />
                             </div>
                             <label class="mx-auto my-auto">End date</label>
-                            <div class="px-2 w-40 md:px-2 md:w-32 sm:px-1 sm:w-10 lg:w-40">
+                            <div
+                                class="px-2 w-40 md:px-2 md:w-32 sm:px-1 sm:w-10 lg:w-40"
+                            >
                                 <VueDatePicker
                                     v-model="search_end_date"
                                     showNowButton
@@ -143,7 +151,9 @@
                             to="/todo/create"
                             class="inline-block items-center px-2 py-1 align-top bg-blue-800 border-transparent rounded-md font-semibold text-m text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                         >
-                            <PlusIcon class="inline xl:h-6 xl:w-6 h-3 w-3 mr-1" />
+                            <PlusIcon
+                                class="inline xl:h-6 xl:w-6 h-3 w-3 mr-1"
+                            />
                             to do</router-link
                         >
                     </div>
@@ -270,37 +280,48 @@
                     />
                 </button>
             </div>
-            <div v-show="view_type === `day`" class="mx-auto my-auto col-span-3 align-bottom">
+            <div
+                v-show="view_type === `day`"
+                class="mx-auto my-auto col-span-3 align-bottom"
+            >
                 <!-- <div class="my-auto"> -->
-                    <h3 class="text-lg sm:text-2xl uppercase text-white font-extrabold">
-                        {{ showToday(selectedDate) }}
-                    </h3>
+                <h3
+                    class="text-lg sm:text-2xl uppercase text-white font-extrabold"
+                >
+                    {{ showToday(selectedDate) }}
+                </h3>
                 <!-- </div> -->
             </div>
-            <div v-show="view_type === `month`" class="mx-auto my-auto col-span-3 align-bottom">
+            <div
+                v-show="view_type === `month`"
+                class="mx-auto my-auto col-span-3 align-bottom"
+            >
                 <!-- <div class="my-auto"> -->
-                    <h3 class="text-lg sm:text-2xl uppercase text-white font-extrabold">
-                        {{ showMonth(selectedMonthYear) }}
-                    </h3>
+                <h3
+                    class="text-lg sm:text-2xl uppercase text-white font-extrabold"
+                >
+                    {{ showMonth(selectedMonthYear) }}
+                </h3>
                 <!-- </div> -->
             </div>
-            <div v-show="view_type === `range`" class="mx-auto my-auto flex col-span-3 align-bottom">
+            <div
+                v-show="view_type === `range`"
+                class="mx-auto my-auto flex col-span-3 align-bottom"
+            >
                 <!-- <div class="my-auto inline-flex"> -->
-                    <h3
-                        class="uppercase text-white font-extrabold inline-flex w-max text-sm sm:text-2xl "
-                    >
-                        {{ showToday(selectedDateStart) }}
-                    </h3>
-                    <h5
-                        class="text-white font-extrabold inline-flex mx-3 w-max"
-                    >
-                        -
-                    </h5>
-                    <h3
-                        class="uppercase text-white font-extrabold inline-flex w-max text-sm sm:text-2xl"
-                    >
-                        {{ showToday(selectedDateEnd) }}
-                    </h3>
+                <h3
+                    class="uppercase text-white font-extrabold inline-flex w-max text-sm sm:text-2xl"
+                >
+                    {{ showToday(selectedDateStart) }}
+                </h3>
+                <h5 class="text-white font-extrabold inline-flex mx-3 w-max">
+                    -
+                </h5>
+                <h3
+                    class="uppercase text-white font-extrabold inline-flex w-max text-sm sm:text-2xl"
+                >
+                    {{ showToday(selectedDateEnd) }}
+                </h3>
                 <!-- </div> -->
             </div>
 
@@ -317,7 +338,9 @@
             </div>
         </div>
 
-        <div class="table-wrp block max-h-screen overflow-y-auto overflow-x-auto">
+        <div
+            class="table-wrp block max-h-screen overflow-y-auto overflow-x-auto"
+        >
             <table
                 class="table table-hover table-bordered text-center"
                 id="example"
@@ -873,7 +896,7 @@
                                             actionSelected(
                                                 this.todo_action.action_id,
                                                 todo.id,
-                                                todo.contact_id
+                                                todo.contact_id,
                                             )
                                         "
                                         v-model="todo_action.action_id"
@@ -900,7 +923,7 @@
                                             actionSelected(
                                                 this.todo_action.action_id,
                                                 todo.id,
-                                                todo.contact_id
+                                                todo.contact_id,
                                             )
                                         "
                                         v-model="todo_action.action_id"
@@ -992,7 +1015,8 @@
 import LaravelVuePagination from "laravel-vue-pagination";
 import axios from "axios";
 import moment from "moment";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import TodoRemarkModalVue from "./TodoRemarkModal.vue";
 import {
     PencilSquareIcon,
@@ -1053,7 +1077,7 @@ export default {
             // this.getToDos();
         }
         console.log(
-            "this is the route params: " + this.$route.params.selectedDate
+            "this is the route params: " + this.$route.params.selectedDate,
         );
     },
 
@@ -1176,13 +1200,13 @@ export default {
                     this.getToDos();
                 } else {
                     this.selectedMonthYear = this.moment(
-                        this.search_month_year
+                        this.search_month_year,
                     ).format("MMMM-YYYY");
                     this.selectedMonth = this.moment(
-                        this.search_month_year
+                        this.search_month_year,
                     ).format("MM");
                     this.selectedYear = this.moment(
-                        this.search_month_year
+                        this.search_month_year,
                     ).format("YYYY");
                     this.getToDos();
                 }
@@ -1275,7 +1299,7 @@ export default {
                         "&sort_direction=" +
                         this.sort_direction +
                         "&sort_field=" +
-                        this.sort_field
+                        this.sort_field,
                 )
                 .then((res) => {
                     this.buffering = false;
@@ -1437,7 +1461,7 @@ export default {
                 document.getElementById("incrementDate").disabled = false;
                 return (this.search_date = moment(this.search_date).add(
                     1,
-                    "d"
+                    "d",
                 ));
             } else if (this.view_type === "month") {
                 document.getElementById("incrementDate").disabled = false;
@@ -1465,7 +1489,7 @@ export default {
                 document.getElementById("decrementDate").disabled = false;
                 return (this.search_date = moment(this.search_date).subtract(
                     1,
-                    "d"
+                    "d",
                 ));
             } else if (this.view_type === "month") {
                 document.getElementById("decrementDate").disabled = false;

@@ -7,11 +7,7 @@
         <div
             class="items-center text-center text-white bg-blue-900 rounded-md w-full"
         >
-            <h1
-                class="py-1 font-extrabold font-mono text-3xl"
-            >
-                Follow Up
-            </h1>
+            <h1 class="py-1 font-extrabold font-mono text-3xl">Follow Up</h1>
         </div>
         <div v-if="errors">
             <div v-for="(v, k) in errors" :key="k">
@@ -31,7 +27,7 @@
             <h2
                 v-for="contact_info in contact"
                 :key="contact_info.id"
-                class="px-1 py-1  bg-amber-300"
+                class="px-1 py-1 bg-amber-300"
             >
                 {{ contact_info.name }}
             </h2>
@@ -142,7 +138,8 @@
 import GoBack from "../utils/GoBack.vue";
 import axios from "axios";
 import moment from "moment";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
     data() {
@@ -184,7 +181,7 @@ export default {
                 await axios.post("/api/followups/store", {
                     priority_id: this.form.priority_id === "" ? 2 : 1,
                     followup_date: this.moment(this.form.followup_date).format(
-                        "YYYY-MM-DD"
+                        "YYYY-MM-DD",
                     ),
                     followup_time: this.form.followup_time,
                     task_id: this.form.task_id,
@@ -203,7 +200,7 @@ export default {
                         priority_id: this.form.priority_id === "" ? 2 : 1,
                         user_id: contact.user_id,
                         todo_date: this.moment(this.form.followup_date).format(
-                            "YYYY-MM-DD"
+                            "YYYY-MM-DD",
                         ),
                         // todo_deadline: "2000-01-01",
                         status_id: contact.status_id,
@@ -221,10 +218,10 @@ export default {
                             name: "followup_index",
                             params: {
                                 selectedMonth: this.getSelectedMonth(
-                                    this.form.todo_date
+                                    this.form.todo_date,
                                 ),
                                 selectedYear: this.getSelectedYear(
-                                    this.form.todo_date
+                                    this.form.todo_date,
                                 ),
                             },
                         });

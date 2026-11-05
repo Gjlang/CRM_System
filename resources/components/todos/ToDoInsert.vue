@@ -144,7 +144,8 @@
 <script>
 import GoBack from "../utils/GoBack.vue";
 import axios from "axios";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
 
 export default {
@@ -183,7 +184,7 @@ export default {
                     priority_id: this.form.priority_id === "" ? 2 : 1,
                     user_id: contact.user_id,
                     todo_date: this.moment(this.form.todo_date).format(
-                        "YYYY-MM-DD"
+                        "YYYY-MM-DD",
                     ),
                     status_id: contact.status_id,
                     type_id: contact.type_id,

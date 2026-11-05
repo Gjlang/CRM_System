@@ -210,7 +210,8 @@
 <script>
 import GoBack from "../utils/GoBack.vue";
 import axios from "axios";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
 
 export default {
@@ -269,10 +270,10 @@ export default {
                     priority_id: this.todo.priority_id,
                     user_id: this.todo.user_id,
                     todo_date: this.moment(this.todo.todo_date).format(
-                        "YYYY-MM-DD"
+                        "YYYY-MM-DD",
                     ),
                     todo_deadline: this.moment(this.todo.todo_deadline).format(
-                        "YYYY-MM-DD"
+                        "YYYY-MM-DD",
                     ),
                     status_id: this.todo.status_id,
                     type_id: this.todo.type_id,

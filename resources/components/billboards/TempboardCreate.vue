@@ -291,7 +291,8 @@ import {
     PencilIcon,
 } from "@heroicons/vue/24/solid";
 import moment from "moment";
-import { VueDatePicker } from "@vuepic/vue-datepicker";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
     components: { GoBack, PencilSquareIcon, TrashIcon, VueDatePicker },
@@ -330,15 +331,15 @@ export default {
             try {
                 await axios.post("/api/tempboards/store", {
                     tpboard_entrydate: this.moment(
-                        this.form.tpboard_entrydate
+                        this.form.tpboard_entrydate,
                     ).format("YYYY-MM-DD"),
                     contact_id: this.form.contact_id,
                     user_id: this.form.user_id,
                     tpboard_startdate: this.moment(
-                        this.form.tpboard_startdate
+                        this.form.tpboard_startdate,
                     ).format("YYYY-MM-DD"),
                     tpboard_enddate: this.moment(
-                        this.form.tpboard_enddate
+                        this.form.tpboard_enddate,
                     ).format("YYYY-MM-DD"),
 
                     tpboard_size1: this.form.tpboard_size1,
